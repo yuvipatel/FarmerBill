@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "9dbc6a35-fce8-404c-93a0-155a332dc075",
+		"name": "FarmersIOT copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Farmer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Sadashiv\",\n\t\"lastName\": \"Maratha\",\n\t\"phoneNumber\": \"9922334455\",\n\t\"language\":\"English\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/farmers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farmers"
+					]
+				},
+				"description": "Create Farmer\n\nBody params --\n{\n\t\"firstName\": \"Sadashiv\",\n\t\"lastName\": \"Maratha\",\n\t\"phoneNumber\": \"9922334455\",\n\t\"language\":\"English\"\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Farm for Farmer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"areaInAcre\": \"50\",\n\t\"village\": \"Nashik\",\n\t\"crop\": \"Wheat\",\n\t\"sowingDate\": \"2019-02-03T15:30:41.656Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/farmers/{{farmerId}}/farms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farmers",
+						"{{farmerId}}",
+						"farms"
+					]
+				},
+				"description": "Farms details, belongs to farmer. It also contains array of schedules of farm.\n\nBody Params \n\n{\n\t\"areaInAcre\": \"50\",\n\t\"village\": \"Nashik\",\n\t\"crop\": \"Wheat\",\n\t\"sowingDate\": \"2019-02-03T15:30:41.656Z\"\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Add fertiliser ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Test 2\",\n\t\"type\": \"Liquid\",\n\t\"detail\": \"Abcdefghi\",\n\t\"pricing\": {\n\t\t\"ml\" : \"20\",\n\t\t\"ltr\": \"2000\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/fertilisers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fertilisers"
+					]
+				},
+				"description": "Add fertilisers, it contains pricing information\n\n\n{\n\t\"name\": \"Test 2\",\n\t\"type\": \"Liquid\",\n\t\"detail\": \"Abcdefghi\",\n\t\"pricing\": {\n\t\t\"ml\" : \"20\",\n\t\t\"ltr\": \"2000\"\n\t}\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Find schedues for passed date",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules?date=2019-02-04T15:30:41.656Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2019-02-04T15:30:41.656Z"
+						}
+					]
+				},
+				"description": "-> Find all schedules due for today/tomorrow (any date).\nExpect to get schedules due on passed date and status.\n\nStatus could be 'Pending' or 'Executed'.\n\nquery params --\n?date=2019-02-04T15:30:41.656Z"
+			},
+			"response": []
+		},
+		{
+			"name": "Get farmer as per passed crop status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"123\",\n\t\"lastName\": \"Maratha\",\n\t\"phoneNumber\": \"129922334455\",\n\t\"language\":\"English\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/farmers?status:Growing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farmers"
+					],
+					"query": [
+						{
+							"key": "status:Growing",
+							"value": null
+						}
+					]
+				},
+				"description": "-> Find all farmers who are growing a crop\n\nQuery params \n\n?status:Growing"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the bill data for farmer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/farmers/{{farmerId}}/action/bill",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farmers",
+						"{{farmerId}}",
+						"action",
+						"bill"
+					]
+				},
+				"description": "Given prices of fertilizers, calculate the bill of materials for a single farmer"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Schedule for farm",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"daysAfterSowing\": \"30\",\n\t\"fertiliserId\": \"5c5712bf5d44105b18194610\",\n\t\"quantity\": \"2\",\n\t\"quantityUnit\": \"ltr\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/farmers/{{farmerId}}/farms/{{farmId}}/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farmers",
+						"{{farmerId}}",
+						"farms",
+						"{{farmId}}",
+						"schedules"
+					]
+				},
+				"description": "\nBody param \n\n{\n\t\"daysAfterSowing\": \"30\",\n\t\"fertiliserId\": \"5c5712bf5d44105b18194610\",\n\t\"quantity\": \"2\",\n\t\"quantityUnit\": \"ltr\"\n}"
+			},
+			"response": []
+		}
+	]
+}
